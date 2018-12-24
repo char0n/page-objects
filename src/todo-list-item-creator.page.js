@@ -53,6 +53,11 @@ const TodoListItemCreator = stampit
 
       return addButton.click();
     },
+    async canCreateNewTodoItem() {
+      const addButton = this.getAddButton();
+
+      return addButton.isEnabled();
+    },
 });
 
 
