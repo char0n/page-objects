@@ -9,7 +9,7 @@ const AddButton = stampit.init(function ({ driver = null }) {
   const findElement = () => this.driver.findElement(By.css('header button'));
 
   /**
-   * Public API.
+   * Privileged API.
    */
 
   this.click = async function click() {
@@ -20,7 +20,7 @@ const AddButton = stampit.init(function ({ driver = null }) {
 });
 
 
-const TodoListItemCreator = stampit
+const TodoListItemCreatorPage = stampit
   .statics({
     AddButton,
   })
@@ -64,4 +64,4 @@ const TodoListItemCreator = stampit
 });
 
 
-module.exports = TodoListItemCreator;
+module.exports = TodoListItemCreatorPage;

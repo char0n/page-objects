@@ -2,12 +2,12 @@
 
 const stampit = require('stampit');
 
-const TodoListItemCreator = require('./todo-list-item-creator');
+const TodoListItemCreator = require('./todo-list-item-creator.page');
 
 
 const TodoListApp = stampit.init(function ({ driver = null, baseUrl = process.env.BASE_URL }) {
   /**
-   * Public API.
+   * Privileged API.
    */
 
   this.getTodoListItemCreator = function getTodoItemCreator() {
