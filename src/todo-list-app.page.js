@@ -1,5 +1,6 @@
 'use strict';
 
+const { By } = require('selenium-webdriver');
 const stampit = require('stampit');
 
 const TodoListItemCreator = require('./todo-list-item-creator.page');
@@ -32,4 +33,4 @@ const TodoListApp = stampit
   });
 
 
-module.exports = TodoApp;
+module.exports = TodoListApp;
