@@ -1,7 +1,7 @@
 {
   "name": "page-objects",
   "version": "1.0.0",
-  "description": "Demonstration source code for article - Utilizing Page objects in e2e test",
+  "description": "Demonstration source code for article - Page Object pattern in JavaScript",
   "main": "index.js",
   "scripts": {
     "test": "",
