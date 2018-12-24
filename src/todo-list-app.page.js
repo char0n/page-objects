@@ -3,25 +3,33 @@
 const stampit = require('stampit');
 
 const TodoListItemCreator = require('./todo-list-item-creator.page');
+const TodoList = require('./todo-list.page');
 
 
-const TodoListApp = stampit.init(function ({ driver = null, baseUrl = process.env.BASE_URL }) {
-  /**
-   * Privileged API.
-   */
+const TodoListApp = stampit
+  .props({
+    driver: null,
+    baseUrl: null,
+  })
+  .init(function ({ driver = this.driver, baseUrl = process.env.BASE_URL }) {
+    this.driver = driver;
+    this.baseUrl = baseUrl;
+  })
+  .methods({
+    getTodoItemCreator() {
+      return TodoListItemCreator({ driver: this.driver });
+    },
+    async getTodoList() {
+      const listElement = await this.driver.findElement(By.id(TodoList.todoListId));
 
-  this.getTodoListItemCreator = function getTodoItemCreator() {
-    return TodoListItemCreator(this.driver);
-  };
+      return TodoList({ webElement: listElement });
+    },
+    async getCompleteList() {
+      const listElement = await this.driver.findElement(By.id(TodoList.completeListId));
 
-  this.getTodoList = function getTodoList() {
-
-  };
-
-  this.getCompleteList = function getCompleteList() {
-
-  };
-});
+      return TodoList({ webElement: listElement });
+    },
+  });
 
 
 module.exports = TodoApp;
