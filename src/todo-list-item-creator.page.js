@@ -7,6 +7,12 @@ const { By } = require('selenium-webdriver');
 const AddButton = stampit.init(function ({ driver }) {
   const findElement = () => driver.findElement(By.css('header button'));
 
+  this.isEnabled = async function isEnabled() {
+    const element = await findElement();
+
+    return element.isEnabled();
+  };
+
   this.click = async function click() {
     const element = await findElement();
 
@@ -15,7 +21,7 @@ const AddButton = stampit.init(function ({ driver }) {
 });
 
 
-const TodoListItemCreatorPage = stampit
+const TodoListItemCreator = stampit
   .statics({
     AddButton,
   })
@@ -50,4 +56,4 @@ const TodoListItemCreatorPage = stampit
 });
 
 
-module.exports = TodoListItemCreatorPage;
+module.exports = TodoListItemCreator;
