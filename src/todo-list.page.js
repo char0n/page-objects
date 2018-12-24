@@ -11,28 +11,22 @@ const TodoList = stampit
     completeListId: 'completed',
     todoListId: 'todo',
   })
-  .props({
-    webElement: null,
-  })
-  .init(function ({ webElement = this.webElement }) {
-    this.webElement = webElement;
+  .init(function ({ webElement }) {
+    this.isComplete = async function isComplete() {
+      return (await webElement.getId()) === TodoList.completeListId;
+    };
+
+    this.isTodo = async function isTodo() {
+      return (await webElement.getId()) === TodoListItem.todoListId;
+    };
+
+    this.getItems = async function getItems() {
+      const items = await webElement.findElements(By.css('li'));
+
+      return items.map(itemWebElement => TodoListItem({ webElement: itemWebElement }));
+    };
   })
   .methods({
-    async isComplete() {
-      const id = await this.webElement.getId();
-
-      return id === TodoList.completeListId;
-    },
-    async isTodo() {
-      const id = await this.webElement.getId();
-
-      return id === TodoList.todoListId;
-    },
-    async getItems() {
-      const items = await this.webElement.findElements(By.css('li'));
-
-      return items.map(webElement => TodoListItem({ webElement }));
-    },
     async getItemAt(index) {
       const items = await this.getItems();
 

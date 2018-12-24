@@ -1,16 +1,11 @@
 'use strict';
 
-const { By } = require('selenium-webdriver');
 const stampit = require('stampit');
+const { By } = require('selenium-webdriver');
 
 
-
-const AddButton = stampit.init(function ({ driver = null }) {
-  const findElement = () => this.driver.findElement(By.css('header button'));
-
-  /**
-   * Privileged API.
-   */
+const AddButton = stampit.init(function ({ driver }) {
+  const findElement = () => driver.findElement(By.css('header button'));
 
   this.click = async function click() {
     const element = await findElement();
@@ -24,18 +19,8 @@ const TodoListItemCreatorPage = stampit
   .statics({
     AddButton,
   })
-  .init(function ({ driver = null }) {
-    this.driver = driver;
-
-    /**
-     * Private API.
-      */
-
-    const findElement = () => this.driver.findElement(By.css('header'));
-
-    /**
-     * Privileged API.
-     */
+  .init(function ({ driver }) {
+    const findElement = () => driver.findElement(By.css('header'));
 
     this.focus = async function focus() {
       const element = await findElement();
@@ -48,18 +33,19 @@ const TodoListItemCreatorPage = stampit
 
       return element.sendKeys(...keys);
     };
+
+    this.getAddButton = function getAddButton() {
+      return AddButton({ driver });
+    };
   })
   .methods({
-    async createNew(text) {
+    async createNewTodoItem(text) {
       await this.focus();
       await this.sendKeys(text);
 
       const addButton = this.getAddButton();
 
       return addButton.click();
-    },
-    getAddButton() {
-      return AddButton({ driver: this.driver });
     },
 });
 

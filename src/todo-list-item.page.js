@@ -1,52 +1,44 @@
 'use strict';
 
-const { By } = require('selenium-webdriver');
 const stampit = require('stampit');
-
-const TodoList = require('./todo-list.page');
+const { By } = require('selenium-webdriver');
 
 
 const TodoListItem = stampit
-  .props({
-    webElement: null,
-    driver: null,
-  })
-  .init(function ({ webElement = this.webElement }) {
-    this.webElement = webElement;
-    this.driver = webElement.getDriver();
-  })
-  .methods({
-    async isComplete() {
-      const listElement = await this.webElement.findElement(By.xpath('..'));
+  .init(function ({ webElement }) {
+    this.isComplete = async function isComplete() {
+      const TodoList = require('./todo-list.page');
+      const listElement = await webElement.findElement(By.xpath('..'));
       const todoList = TodoList({ webElement: listElement });
 
       return todoList.isComplete();
-    },
+    };
+
+    this.delete = async function _delete() {
+      const button = await webElement.findElement(By.className('remove'));
+
+      return button.click();
+    };
+
+    this.complete = async function complete() {
+      const button = await webElement.findElement(By.className('complete'));
+
+      if (!(await this.isComplete())) { return false; }
+
+      return button.click();
+    };
+
+    this.uncomplete = async function uncomplete() {
+      const button = await webElement.findElement(By.className('complete'));
+
+      if (!(await this.isTodo())) { return false; }
+
+      return button.click();
+    };
+  })
+  .methods({
     async isTodo() {
-      const isComplete = await this.isComplete();
-
-      return !isComplete;
-    },
-    async delete() {
-      const button = await this.webElement.findElement(By.className('remove'));
-
-      return button.click();
-    },
-    async complete() {
-      const button = await this.webElement.findElement(By.className('complete'));
-      const isComplete = await this.isComplete();
-
-      if (!isComplete) { return false; }
-
-      return button.click();
-    },
-    async uncomplete() {
-      const button = await this.webElement.findElement(By.className('complete'));
-      const isTodo = await this.isTodo();
-
-      if (!isTodo) { return false; }
-
-      return button.click();
+      return !(await this.isComplete());
     },
   });
 

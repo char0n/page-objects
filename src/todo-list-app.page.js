@@ -1,35 +1,36 @@
 'use strict';
 
-const { By } = require('selenium-webdriver');
 const stampit = require('stampit');
+const { By } = require('selenium-webdriver');
 
-const TodoListItemCreator = require('./todo-list-item-creator.page');
 const TodoList = require('./todo-list.page');
+const TodoListItemCreator = require('./todo-list-item-creator.page');
 
 
 const TodoListApp = stampit
-  .props({
-    driver: null,
-    baseUrl: null,
+  .conf({
+    baseUrl: process.env.BASE_URL,
   })
-  .init(function ({ driver = this.driver, baseUrl = process.env.BASE_URL }) {
-    this.driver = driver;
-    this.baseUrl = baseUrl;
-  })
-  .methods({
-    getTodoItemCreator() {
-      return TodoListItemCreator({ driver: this.driver });
-    },
-    async getTodoList() {
-      const listElement = await this.driver.findElement(By.id(TodoList.todoListId));
+  .init(function ({ driver }, { stamp }) {
+    this.open = async function open(location = '') {
+      return driver.get(`${stamp.compose.configuration.baseUrl}${location}`);
+    };
+
+    this.getTodoItemCreator = function getTodoItemCreator() {
+      return TodoListItemCreator({ driver });
+    };
+
+    this.getTotoList = async function getTodoList() {
+      const listElement = await driver.findElement(By.id(TodoList.todoListId));
 
       return TodoList({ webElement: listElement });
-    },
-    async getCompleteList() {
-      const listElement = await this.driver.findElement(By.id(TodoList.completeListId));
+    };
+
+    this.getCompleteList = async function getCompleteList() {
+      const listElement = await driver.findElement(By.id(TodoList.completeListId));
 
       return TodoList({ webElement: listElement });
-    },
+    };
   });
 
 
