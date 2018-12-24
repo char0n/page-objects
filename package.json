@@ -1,0 +1,36 @@
+{
+  "name": "page-objects",
+  "version": "1.0.0",
+  "description": "Demonstration source code for article - Utilizing Page objects in e2e test",
+  "main": "index.js",
+  "scripts": {
+    "test": "",
+    "start": "serve src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/char0n/page-objects.git"
+  },
+  "keywords": [
+    "page",
+    "objects",
+    "e2e"
+  ],
+  "author": {
+    "name": "Vladimir Gorej",
+    "email": "vladimir.gorej@gmail.com",
+    "url": "https://www.linkedin.com/in/vladimirgorej/"
+  },
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/char0n/page-objects/issues"
+  },
+  "homepage": "https://github.com/char0n/page-objects#readme",
+  "devDependencies": {
+    "selenium-webdriver": "=4.0.0-alpha.1",
+    "serve": "=10.1.1"
+  },
+  "dependencies": {
+    "stampit": "=4.2.0"
+  }
+}
