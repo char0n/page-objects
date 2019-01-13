@@ -38,4 +38,4 @@ const handler = {
 };
 
 
-export default webElement => new Proxy(WebElementEnhanced({ webElement }), handler);
+module.exports = webElement => new Proxy(WebElementEnhanced({ webElement }), handler);
