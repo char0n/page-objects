@@ -26,7 +26,7 @@ const TodoListItemCreator = stampit
     AddButton,
   })
   .init(function ({ driver }) {
-    const findElement = () => driver.findElement(By.css('header'));
+    const findElement = async () => driver.findElement(By.css('header'));
 
     this.focus = async function focus() {
       const element = await findElement();
