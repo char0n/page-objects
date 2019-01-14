@@ -6,5 +6,5 @@ Install and run the project. You should see a simple Todo App.
 
 ```sh
  $ npm install
- $ npm start
+ $ npm run start
 ```
