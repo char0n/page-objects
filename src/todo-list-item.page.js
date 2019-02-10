@@ -22,18 +22,32 @@ const TodoListItem = stampit
 
     this.complete = async function complete() {
       const button = await webElement.findElement(By.className('complete'));
+      const isComplete = await this.isComplete();
 
-      if (!(await this.isComplete())) { return false; }
+      if (isComplete) { return false; }
 
       return button.click();
     };
 
     this.uncomplete = async function uncomplete() {
       const button = await webElement.findElement(By.className('complete'));
+      const isTodo = await this.isTodo();
 
-      if (!(await this.isTodo())) { return false; }
+      if (isTodo) { return false; }
 
       return button.click();
+    };
+
+    this.containsText = async function containsText(text) {
+      return webElement.getDriver().WebElementEnhanced(webElement).containsText(text);
+    };
+
+    this.isDisplayed = async function isDisplayed() {
+      try {
+        return webElement.isDisplayed();
+      } catch (e) {
+        return false;
+      }
     };
   })
   .methods({

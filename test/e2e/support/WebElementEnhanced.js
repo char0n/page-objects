@@ -6,18 +6,23 @@ const { isFunction } = require('ramda-adjunct');
 
 
 const WebElementEnhanced = stampit
+  .props({
+    webElement: null,
+  })
   .init(function ({ webElement }) {
-    this.containsClassName = async function containsClassName(className) {
-      const classList = await webElement.getAttribute('class');
+    this.webElement = webElement;
+  })
+  .methods({
+    async containsClassName(className) {
+      const classList = await this.webElement.getAttribute('class');
 
       return pipe(split(' '), includes(className))(classList);
-    };
-
-    this.containsText = async function containsText(text) {
-      const elementText = await webElement.getText();
+    },
+    async containsText(text) {
+      const elementText = await this.webElement.getText();
 
       return includes(text, elementText);
-    };
+    },
   });
 
 

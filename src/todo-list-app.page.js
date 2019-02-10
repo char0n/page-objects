@@ -16,11 +16,15 @@ const TodoListApp = stampit
       return driver.get(`${stamp.compose.configuration.baseUrl}${location}`);
     };
 
+    this.close = async function close() {
+      return driver.quit();
+    };
+
     this.getTodoItemCreator = function getTodoItemCreator() {
       return TodoListItemCreator({ driver });
     };
 
-    this.getTotoList = async function getTodoList() {
+    this.getTodoList = async function getTodoList() {
       const listElement = await driver.findElement(By.id(TodoList.todoListId));
 
       return TodoList({ webElement: listElement });

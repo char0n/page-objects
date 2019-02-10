@@ -4,8 +4,19 @@
   "description": "Demonstration source code for article - Page Object pattern in JavaScript",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "bnr test:e2e:chrome",
     "start": "serve src/"
+  },
+  "betterScripts": {
+    "test:e2e:chrome": {
+      "command": "bnr test:e2e",
+      "env": {
+        "BROWSER": "chrome",
+        "HEADLESS": true,
+        "BASE_URL": "http://localhost:5000"
+      }
+    },
+    "test:e2e": "cucumber-js --tags 'not @ignore' features/ -r test/e2e/cucumber-bootstrap.js -r test/e2e/support -r test/e2e/step_definitions --parallel 1"
   },
   "repository": {
     "type": "git",
@@ -27,12 +38,17 @@
   },
   "homepage": "https://github.com/char0n/page-objects#readme",
   "devDependencies": {
+    "better-npm-run": "=0.1.1",
+    "chai": "=4.2.0",
+    "chromedriver": "=2.46.0",
+    "cucumber": "=5.1.0",
+    "env-var": "=3.4.2",
     "selenium-webdriver": "=4.0.0-alpha.1",
     "serve": "=10.1.1"
   },
   "dependencies": {
     "ramda": "=0.26.1",
-    "ramda-adjunct": "=2.13.0",
+    "ramda-adjunct": "=2.15.0",
     "stampit": "=4.2.0"
   }
 }

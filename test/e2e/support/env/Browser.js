@@ -15,6 +15,10 @@ const Browser = stampit(Environment, {
     this.getCurrentUrl = async function getCurrentUrl() {
       return new URL(await driver.getCurrentUrl());
     };
+
+    this.deleteAllCookies = async function deleteAllCookies() {
+      return driver.manage().deleteAllCookies();
+    };
   },
 });
 

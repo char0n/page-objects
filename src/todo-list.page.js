@@ -13,11 +13,11 @@ const TodoList = stampit
   })
   .init(function ({ webElement }) {
     this.isComplete = async function isComplete() {
-      return (await webElement.getId()) === TodoList.completeListId;
+      return (await webElement.getAttribute('id')) === TodoList.completeListId;
     };
 
     this.isTodo = async function isTodo() {
-      return (await webElement.getId()) === TodoListItem.todoListId;
+      return (await webElement.getAttribute('id')) === TodoList.todoListId;
     };
 
     this.getItems = async function getItems() {
