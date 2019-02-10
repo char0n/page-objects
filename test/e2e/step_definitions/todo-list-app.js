@@ -6,7 +6,7 @@ const { Given, When, Then } = require('cucumber');
  */
 
 Given('I open the TodoListApp', async function() {
-  await this.todoListApp.open();
+  return this.todoListApp.open();
 });
 
 
